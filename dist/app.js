@@ -13,7 +13,7 @@ const users_1 = __importDefault(require("./routes/users"));
 var app = express_1.default();
 // view engine setup
 app.set('views', path_1.default.join(__dirname, '../views'));
-app.set('view engine', 'jade');
+app.set('view engine', 'pug');
 app.use(morgan_1.default('dev'));
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: false }));
