@@ -5,7 +5,8 @@ import { dateCreated } from '../helpers/date';
 import { userSchema } from '../utils/validation-schema';
 
 export const getContactsController = (_req: Request, res: Response) => {
-  res.status(200).json({ users: contactList });
+  const users = contactList.filter(user => !user.isBlocked);
+  res.status(200).json({ contacts: users });
 };
 
 export const getContactController = (req: Request, res: Response) => {
