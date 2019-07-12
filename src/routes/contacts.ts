@@ -4,6 +4,7 @@ import {
   getContactController,
   postContactController,
   deleteContactController,
+  blockContactController,
 } from '../controllers';
 
 const router = Router();
@@ -11,6 +12,7 @@ const router = Router();
 router.get('/contacts', getContactsController);
 router.get('/contact/:id', getContactController);
 router.post('/contacts', postContactController);
-router.delete('/contacts/:id', deleteContactController);
+router.delete('/contact/:id', deleteContactController);
+router.post('/contact/:id/block', blockContactController);
 
 export default router;
