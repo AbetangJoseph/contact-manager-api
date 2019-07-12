@@ -2,18 +2,11 @@ interface User {
   id: number
   firstname: string
   lastname?: string
-  email?: string
   mobile: string
+  address?: string
+  email?: string
   company?: string
   website?: string
 }
 
-export const contactList: User[] = [
-  {
-    id: 1,
-    firstname: 'Joe',
-    lastname: 'Abetang',
-    email: 'joeabetang@gmail.com',
-    mobile: '+2348122773761',
-  },
-]
+export const contactList: Array<User> = []
