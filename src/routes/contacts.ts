@@ -1,14 +1,16 @@
-import { Router } from 'express'
+import { Router } from 'express';
 import {
   getContactsController,
   getContactController,
   postContactController,
-} from '../controllers'
+  deleteContactController,
+} from '../controllers';
 
-const router = Router()
+const router = Router();
 
-router.get('/contacts', getContactsController)
-router.get('/contact/:id', getContactController)
-router.post('/contacts', postContactController)
+router.get('/contacts', getContactsController);
+router.get('/contact/:id', getContactController);
+router.post('/contacts', postContactController);
+router.delete('/contacts/:id', deleteContactController);
 
-export default router
+export default router;
