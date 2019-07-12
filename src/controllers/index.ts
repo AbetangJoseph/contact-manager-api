@@ -2,7 +2,7 @@ import { Request, Response } from 'express'
 import { contactList } from '../models/contacts'
 import { validateInput } from '../middleware/validator'
 import { dateCreated } from '../helpers/date'
-import { schema } from '../utils/validation-schema'
+import { userSchema } from '../utils/validation-schema'
 
 export const getContactsController = (_req: Request, res: Response) => {
   res.status(200).json({ users: contactList })
