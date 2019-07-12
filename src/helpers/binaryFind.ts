@@ -1,4 +1,4 @@
-export const binaryFind = (table: Array<any>, UserId: string) => {
+export const binarySearch = (table: Array<any>, UserId: string) => {
   const userId = parseInt(UserId);
   let start = 0;
   let end = table.length - 1;

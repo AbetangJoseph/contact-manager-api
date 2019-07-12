@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { contactList } from '../models/contacts';
 import { validateInput } from '../middleware/validator';
 import { dateCreated } from '../helpers/date';
-import { binaryFind } from '../helpers/binaryFind';
+import { binarySearch } from '../helpers/binaryFind';
 import { userSchema } from '../utils/validation-schema';
 
 export const getContactsController = (_req: Request, res: Response) => {
@@ -11,7 +11,7 @@ export const getContactsController = (_req: Request, res: Response) => {
 };
 
 export const getContactController = (req: Request, res: Response) => {
-  const user = binaryFind(contactList, req.params.id);
+  const user = binarySearch(contactList, req.params.id);
   if (!user) {
     res.json({ message: 'no such user' });
     return;
