@@ -7,5 +7,9 @@ export const getContactsController = (_req: Request, res: Response) => {
 
 export const getContactController = (req: Request, res: Response) => {
   const user = contactList.find(user => user.id === parseInt(req.params.id))
+  if (!user) {
+    res.json({ message: 'no such user' })
+    return
+  }
   res.status(200).json({ user: user })
 }
