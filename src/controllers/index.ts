@@ -27,7 +27,7 @@ export const postContactController = (req: Request, res: Response) => {
 
   const userId = contactList.length + 1;
   const date = dateCreated();
-  const user = { ...value, id: userId, created: date };
+  const user = { ...value, id: userId, created: date, isBlocked: false };
   contactList.push(user);
   res.status(200).json({
     status: 'success',
@@ -48,4 +48,14 @@ export const deleteContactController = (req: Request, res: Response) => {
 
   contactList.splice(userIndex, 1);
   res.status(200).json({ message: 'User deleted successfully' });
+};
+
+export const blockContactController = (req: Request, res: Response) => {
+  const user = contactList.find(user => user.id === parseInt(req.params.id));
+  if (!user) {
+    res.status(400).json({ message: 'bad request' });
+    return;
+  }
+  user.isBlocked = true;
+  res.status(200).json({ message: 'Contact has been blocked' });
 };
