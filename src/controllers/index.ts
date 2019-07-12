@@ -60,3 +60,8 @@ export const blockContactController = (req: Request, res: Response) => {
   user.isBlocked = true;
   res.status(200).json({ message: 'Contact has been blocked' });
 };
+
+export const blockedContactsController = (_req: Request, res: Response) => {
+  const blockedContacts = contactList.filter(contact => contact.isBlocked);
+  res.status(200).json({ blockedContacts: blockedContacts });
+};
