@@ -6,6 +6,7 @@ import {
   deleteContactController,
   blockContactController,
   blockedContactsController,
+  unBlockContactController,
 } from '../controllers';
 
 const router = Router();
@@ -16,5 +17,6 @@ router.post('/contacts', postContactController);
 router.delete('/contact/:id', deleteContactController);
 router.post('/contact/:id/block', blockContactController);
 router.get('/contacts/blocked', blockedContactsController);
+router.post('/contact/:id/unblock', unBlockContactController);
 
 export default router;
