@@ -2,10 +2,10 @@ import { Router } from 'express';
 import {
   getContactsController,
   getContactController,
-  postContactController,
+  addContactController,
   deleteContactController,
   blockContactController,
-  blockedContactsController,
+  getBlockedContactsController,
   unBlockContactController,
 } from '../controllers';
 
@@ -13,10 +13,10 @@ const router = Router();
 
 router.get('/contacts', getContactsController);
 router.get('/contact/:id', getContactController);
-router.post('/contacts', postContactController);
-router.delete('/contact/:id', deleteContactController);
+router.get('/contacts/blocked', getBlockedContactsController);
+router.post('/contacts', addContactController);
 router.post('/contact/:id/block', blockContactController);
-router.get('/contacts/blocked', blockedContactsController);
 router.post('/contact/:id/unblock', unBlockContactController);
+router.delete('/contact/:id', deleteContactController);
 
 export default router;
