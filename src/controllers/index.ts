@@ -19,7 +19,12 @@ export const getContactController = (req: Request, res: Response) => {
   res.status(200).json({ user: user });
 };
 
-export const postContactController = (req: Request, res: Response) => {
+export const getBlockedContactsController = (_req: Request, res: Response) => {
+  const blockedContacts = contactList.filter(contact => contact.isBlocked);
+  res.status(200).json({ blockedContacts: blockedContacts });
+};
+
+export const addContactController = (req: Request, res: Response) => {
   const { error, value } = validateInput(req.body, userSchema);
 
   if (error) {
@@ -36,20 +41,6 @@ export const postContactController = (req: Request, res: Response) => {
     message: 'User created successfully',
     data: { ...user },
   });
-};
-
-export const deleteContactController = (req: Request, res: Response) => {
-  const userIndex = contactList.findIndex(
-    user => user.id === parseInt(req.params.id),
-  );
-
-  if (userIndex === -1) {
-    res.status(404).json({ message: 'no such user' });
-    return;
-  }
-
-  contactList.splice(userIndex, 1);
-  res.status(200).json({ message: 'User deleted successfully' });
 };
 
 export const blockContactController = (req: Request, res: Response) => {
@@ -72,7 +63,16 @@ export const unBlockContactController = (req: Request, res: Response) => {
   res.status(200).json({ message: 'Contact has been unblocked' });
 };
 
-export const blockedContactsController = (_req: Request, res: Response) => {
-  const blockedContacts = contactList.filter(contact => contact.isBlocked);
-  res.status(200).json({ blockedContacts: blockedContacts });
+export const deleteContactController = (req: Request, res: Response) => {
+  const userIndex = contactList.findIndex(
+    user => user.id === parseInt(req.params.id),
+  );
+
+  if (userIndex === -1) {
+    res.status(404).json({ message: 'no such user' });
+    return;
+  }
+
+  contactList.splice(userIndex, 1);
+  res.status(200).json({ message: 'User deleted successfully' });
 };
