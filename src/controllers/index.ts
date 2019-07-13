@@ -62,6 +62,16 @@ export const blockContactController = (req: Request, res: Response) => {
   res.status(200).json({ message: 'Contact has been blocked' });
 };
 
+export const unBlockContactController = (req: Request, res: Response) => {
+  const user = binarySearch(contactList, req.params.id);
+  if (!user) {
+    res.status(400).json({ message: 'bad request' });
+    return;
+  }
+  user.isBlocked = false;
+  res.status(200).json({ message: 'Contact has been unblocked' });
+};
+
 export const blockedContactsController = (_req: Request, res: Response) => {
   const blockedContacts = contactList.filter(contact => contact.isBlocked);
   res.status(200).json({ blockedContacts: blockedContacts });
