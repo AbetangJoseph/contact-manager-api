@@ -53,7 +53,7 @@ export const deleteContactController = (req: Request, res: Response) => {
 };
 
 export const blockContactController = (req: Request, res: Response) => {
-  const user = contactList.find(user => user.id === parseInt(req.params.id));
+  const user = binarySearch(contactList, req.params.id);
   if (!user) {
     res.status(400).json({ message: 'bad request' });
     return;
