@@ -63,6 +63,24 @@ export const unBlockContactController = (req: Request, res: Response) => {
   res.status(200).json({ message: 'Contact has been unblocked' });
 };
 
+export const updateContactController = (req: Request, res: Response) => {
+  const { user, userIndex } = binarySearch(contactList, req.params.id);
+  if (!user) {
+    res.status(400).json({ message: 'no such contact' });
+    return;
+  }
+
+  const { error, value } = validateUpdate(req.body, userSchema);
+  if (error) {
+    res.status(400).json({ message: error.message });
+  }
+
+  const updatedUser = { ...user, ...value };
+  contactList.splice(userIndex, 1, updatedUser);
+
+  res.status(200).json({ message: true });
+};
+
 export const deleteContactController = (req: Request, res: Response) => {
   const userIndex = contactList.findIndex(
     user => user.id === parseInt(req.params.id),
