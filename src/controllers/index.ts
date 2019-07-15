@@ -11,7 +11,7 @@ export const getContactsController = (_req: Request, res: Response) => {
 };
 
 export const getContactController = (req: Request, res: Response) => {
-  const user = binarySearch(contactList, req.params.id);
+  const { user } = binarySearch(contactList, req.params.id);
   if (!user) {
     res.json({ message: 'no such user' });
     return;
@@ -25,7 +25,7 @@ export const getBlockedContactsController = (_req: Request, res: Response) => {
 };
 
 export const addContactController = (req: Request, res: Response) => {
-  const { error, value } = validateInput(req.body, userSchema);
+  const { error, value } = validateAdd(req.body, userSchema);
 
   if (error) {
     res.status(400).json({ message: error.message });
@@ -44,7 +44,7 @@ export const addContactController = (req: Request, res: Response) => {
 };
 
 export const blockContactController = (req: Request, res: Response) => {
-  const user = binarySearch(contactList, req.params.id);
+  const { user } = binarySearch(contactList, req.params.id);
   if (!user) {
     res.status(400).json({ message: 'bad request' });
     return;
@@ -54,7 +54,7 @@ export const blockContactController = (req: Request, res: Response) => {
 };
 
 export const unBlockContactController = (req: Request, res: Response) => {
-  const user = binarySearch(contactList, req.params.id);
+  const { user } = binarySearch(contactList, req.params.id);
   if (!user) {
     res.status(400).json({ message: 'bad request' });
     return;
