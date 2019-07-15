@@ -7,7 +7,7 @@ export const binarySearch = (table: Array<any>, UserId: string) => {
     const middle = Math.floor((start + end) / 2);
 
     if (table[middle].id === userId) {
-      return { user: table[middle], userIndex: middle };
+      return { contact: table[middle], contactIndex: middle };
     }
 
     if (table[middle].id > userId) {
