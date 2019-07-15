@@ -1,8 +1,8 @@
 import joi from '@hapi/joi';
-import { addUser, editUser } from '../interface.def';
+import { addContact, editContact } from '../interface.def';
 
 export const validateAdd = (requestBody: any, schema: any) => {
-  const { error, value } = joi.validate<addUser>(requestBody, schema, {
+  const { error, value } = joi.validate<addContact>(requestBody, schema, {
     abortEarly: false,
     stripUnknown: true,
   });
@@ -10,7 +10,7 @@ export const validateAdd = (requestBody: any, schema: any) => {
 };
 
 export const validateUpdate = (requestBody: any, schema: any) => {
-  const { error, value } = joi.validate<editUser>(requestBody, schema, {
+  const { error, value } = joi.validate<editContact>(requestBody, schema, {
     abortEarly: false,
     stripUnknown: true,
   });
