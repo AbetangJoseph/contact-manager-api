@@ -16,8 +16,8 @@ router.get('/contacts', getContactsController);
 router.get('/contact/:id', getContactController);
 router.get('/contacts/blocked', getBlockedContactsController);
 router.post('/contacts', addContactController);
-router.post('/contact/:id/block', blockContactController);
-router.post('/contact/:id/unblock', unBlockContactController);
+router.put('/contact/:id/block', blockContactController);
+router.put('/contact/:id/unblock', unBlockContactController);
 router.put('/contact/:id/edit', updateContactController);
 router.delete('/contact/:id', deleteContactController);
 
