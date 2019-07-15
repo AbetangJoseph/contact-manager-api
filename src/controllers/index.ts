@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { contactList } from '../models/contacts';
-import { validateInput } from '../middleware/validator';
+import { validateAdd, validateUpdate } from '../middleware/validator';
 import { dateCreated } from '../helpers/date';
 import { binarySearch } from '../helpers/binaryFind';
 import { userSchema } from '../utils/validation-schema';
