@@ -11,12 +11,12 @@ export const getContactsController = (_req: Request, res: Response) => {
 };
 
 export const getContactController = (req: Request, res: Response) => {
-  const { user } = binarySearch(contactList, req.params.id);
-  if (!user) {
+  const userData = binarySearch(contactList, req.params.id);
+  if (!userData) {
     res.json({ message: 'no such user' });
     return;
   }
-  res.status(200).json({ user: user });
+  res.status(200).json({ user: userData.user });
 };
 
 export const getBlockedContactsController = (_req: Request, res: Response) => {
@@ -44,28 +44,28 @@ export const addContactController = (req: Request, res: Response) => {
 };
 
 export const blockContactController = (req: Request, res: Response) => {
-  const { user } = binarySearch(contactList, req.params.id);
-  if (!user) {
+  const userData = binarySearch(contactList, req.params.id);
+  if (!userData) {
     res.status(400).json({ message: 'bad request' });
     return;
   }
-  user.isBlocked = true;
+  userData.user.isBlocked = true;
   res.status(200).json({ message: 'Contact has been blocked' });
 };
 
 export const unBlockContactController = (req: Request, res: Response) => {
-  const { user } = binarySearch(contactList, req.params.id);
-  if (!user) {
+  const userData = binarySearch(contactList, req.params.id);
+  if (!userData) {
     res.status(400).json({ message: 'bad request' });
     return;
   }
-  user.isBlocked = false;
+  userData.user.isBlocked = false;
   res.status(200).json({ message: 'Contact has been unblocked' });
 };
 
 export const updateContactController = (req: Request, res: Response) => {
-  const { user, userIndex } = binarySearch(contactList, req.params.id);
-  if (!user) {
+  const userData = binarySearch(contactList, req.params.id);
+  if (!userData) {
     res.status(400).json({ message: 'no such contact' });
     return;
   }
@@ -75,8 +75,8 @@ export const updateContactController = (req: Request, res: Response) => {
     res.status(400).json({ message: error.message });
   }
 
-  const updatedUser = { ...user, ...value };
-  contactList.splice(userIndex, 1, updatedUser);
+  const updatedUser = { ...userData.user, ...value };
+  contactList.splice(userData.userIndex, 1, updatedUser);
 
   res.status(200).json({ message: true });
 };
