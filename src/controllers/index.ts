@@ -13,7 +13,7 @@ export const getContactsController = (_req: Request, res: Response) => {
 export const getContactController = (req: Request, res: Response) => {
   const contactData = binarySearch(contactList, req.params.id);
   if (!contactData) {
-    res.json({ message: 'no such user' });
+    res.status(404).json({ message: 'no such user' });
     return;
   }
   res.status(200).json({ user: contactData.contact });
