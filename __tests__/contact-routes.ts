@@ -124,7 +124,7 @@ describe('API Routes', () => {
       .set('Accept', 'application/json')
       .expect(res => {
         expect(res.status).toBe(200);
-        expect(res.body.message).toMatch('Contact has been unblocked');
+        expect(res.body.message).toMatch('contact has been unblocked');
       });
   });
 
