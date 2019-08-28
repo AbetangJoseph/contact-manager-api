@@ -16,4 +16,5 @@ export const binarySearch = (table: Array<any>, UserId: string) => {
       start = middle + 1;
     }
   }
+  return;
 };
