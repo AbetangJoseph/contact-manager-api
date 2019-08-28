@@ -1,6 +1,6 @@
-import joi from '@hapi/joi'
+import joi from '@hapi/joi';
 
-export const userSchema = {
+export const addContactSchema = {
   firstname: joi.string().required(),
   lastname: joi
     .string()
@@ -29,4 +29,22 @@ export const userSchema = {
     .string()
     .optional()
     .allow(''),
-}
+};
+
+export const updateContactSchema = {
+  firstname: joi.string().optional(),
+  lastname: joi.string().optional(),
+  mobile: joi
+    .string()
+    .min(10)
+    .max(14)
+    .optional(),
+  address: joi.string().optional(),
+  email: joi
+    .string()
+    .email()
+    .optional()
+    .lowercase(),
+  company: joi.string().optional(),
+  website: joi.string().optional(),
+};
