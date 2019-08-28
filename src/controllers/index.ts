@@ -1,9 +1,8 @@
 import { Request, Response } from 'express';
 import { contactList } from '../models/contacts';
 import { validateAdd, validateUpdate } from '../middleware/validator';
-import { dateCreated } from '../helpers/date';
 import { binarySearch } from '../helpers/binaryFind';
-import { userSchema } from '../utils/validation-schema';
+import { addUserSchema, updateUserSchema } from '../utils/validation-schema';
 
 export const getContactsController = (_req: Request, res: Response) => {
   const contacts = contactList.filter(contact => !contact.isBlocked);
@@ -25,7 +24,7 @@ export const getBlockedContactsController = (_req: Request, res: Response) => {
 };
 
 export const addContactController = (req: Request, res: Response) => {
-  const { error, value } = validateAdd(req.body, userSchema);
+  const { error, value } = validateAdd(req.body, addUserSchema);
 
   if (error) {
     res.status(400).json({ message: error.message });
@@ -33,12 +32,12 @@ export const addContactController = (req: Request, res: Response) => {
   }
 
   const userId = contactList.length + 1;
-  const date = dateCreated();
+  const date = Date.now();
   const contact = { ...value, id: userId, created: date, isBlocked: false };
   contactList.push(contact);
-  res.status(200).json({
+  res.status(201).json({
     status: 'success',
-    message: 'User created successfully',
+    message: 'contact created successfully',
     data: { ...contact },
   });
 };
@@ -50,33 +49,33 @@ export const blockContactController = (req: Request, res: Response) => {
     return;
   }
   contactData.contact.isBlocked = true;
-  res.status(200).json({ message: 'Contact has been blocked' });
+  res.status(200).json({ message: 'contact has been blocked' });
 };
 
 export const unBlockContactController = (req: Request, res: Response) => {
   const contactData = binarySearch(contactList, req.params.id);
   if (!contactData) {
-    res.status(400).json({ message: 'bad request' });
+    res.status(400).json({ error: 'bad request' });
     return;
   }
   contactData.contact.isBlocked = false;
-  res.status(200).json({ message: 'Contact has been unblocked' });
+  res.status(200).json({ message: 'contact has been unblocked' });
 };
 
 export const updateContactController = (req: Request, res: Response) => {
   const contactData = binarySearch(contactList, req.params.id);
   if (!contactData) {
-    res.status(400).json({ message: 'no such contact' });
+    res.status(400).json({ error: 'no such contact' });
     return;
   }
 
-  const { error, value } = validateUpdate(req.body, userSchema);
+  const { error, value } = validateUpdate(req.body, updateUserSchema);
   if (error) {
-    res.status(400).json({ message: error.message });
+    res.status(400).json({ error: error.message });
+    return;
   }
 
-  const updatedUser = { ...contactData.contact, ...value };
-  contactList.splice(contactData.contactIndex, 1, updatedUser);
+  contactList[contactData.contactIndex] = { ...contactData.contact, ...value };
 
   res.status(200).json({ message: true });
 };
@@ -87,10 +86,11 @@ export const deleteContactController = (req: Request, res: Response) => {
   );
 
   if (contactIndex === -1) {
-    res.status(404).json({ message: 'no such user' });
+    res.status(404).json({ message: 'no such contact' });
     return;
   }
-
+  const deletedContact = contactList[contactIndex];
   contactList.splice(contactIndex, 1);
-  res.status(200).json({ message: 'User deleted successfully' });
+
+  res.status(200).json({ data: deletedContact });
 };
