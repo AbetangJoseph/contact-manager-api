@@ -13,12 +13,12 @@ import {
 const router = Router();
 
 router.get('/contacts', getContactsController);
-router.get('/contact/:id', getContactController);
 router.get('/contacts/blocked', getBlockedContactsController);
+router.get('/contacts/:id', getContactController);
 router.post('/contacts', addContactController);
-router.put('/contact/:id/block', blockContactController);
-router.put('/contact/:id/unblock', unBlockContactController);
-router.put('/contact/:id/edit', updateContactController);
-router.delete('/contact/:id', deleteContactController);
+router.put('/contacts/:id/block', blockContactController);
+router.put('/contacts/:id/unblock', unBlockContactController);
+router.put('/contacts/:id/edit', updateContactController);
+router.delete('/contacts/:id', deleteContactController);
 
 export default router;
