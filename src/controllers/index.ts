@@ -2,7 +2,10 @@ import { Request, Response } from 'express';
 import { contactList } from '../models/contacts';
 import { validateAdd, validateUpdate } from '../middleware/validator';
 import { binarySearch } from '../helpers/binaryFind';
-import { addUserSchema, updateUserSchema } from '../utils/validation-schema';
+import {
+  addContactSchema,
+  updateContactSchema,
+} from '../utils/validation-schema';
 
 export const getContactsController = (_req: Request, res: Response) => {
   const contacts = contactList.filter(contact => !contact.isBlocked);
@@ -24,7 +27,7 @@ export const getBlockedContactsController = (_req: Request, res: Response) => {
 };
 
 export const addContactController = (req: Request, res: Response) => {
-  const { error, value } = validateAdd(req.body, addUserSchema);
+  const { error, value } = validateAdd(req.body, addContactSchema);
 
   if (error) {
     res.status(400).json({ message: error.message });
@@ -69,7 +72,7 @@ export const updateContactController = (req: Request, res: Response) => {
     return;
   }
 
-  const { error, value } = validateUpdate(req.body, updateUserSchema);
+  const { error, value } = validateUpdate(req.body, updateContactSchema);
   if (error) {
     res.status(400).json({ error: error.message });
     return;
